@@ -1,6 +1,6 @@
 # MolecularNetwork
 
-`MolecularNetwork` is a Python package that facilitates the creation of molecular networks based on molecular similarities. It leverages the RDKit for molecular operations, and NetworkX for graph operations.
+`MolecularNetwork` is a Python package that facilitates the creation of molecular networks based on molecular similarities. It leverages RDKit for molecular operations, and NetworkX for graph operations.
 
 ## Features
 
