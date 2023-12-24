@@ -1,14 +1,12 @@
 # MolecularNetwork
 
-`MolecularNetwork` is a Python package that facilitates the creation of molecular networks based on molecular similarities. It leverages the RDKit for molecular operations, NetworkX for graph operations, and PyVis for visualizing the generated molecular networks.
+`MolecularNetwork` is a Python package that facilitates the creation of molecular networks based on molecular similarities. It leverages the RDKit for molecular operations, and NetworkX for graph operations.
 
 ## Features
 
 - **Molecular Descriptors:** Calculate molecular fingerprints using descriptor types (e.g., Morgan fingerprints, MACCS keys, AtomPairs).
 
 - **Similarity Metrics:** Choose from a variety of similarity metrics (e.g., Tanimoto, Cosine, Dice) to quantify molecular similarities.
-
-- **Network Visualization:** Visualize the generated molecular networks using interactive graph visualization tools.
 
 - **Modularity:** The code is organized into modular components, promoting easy extension and customization.
 
@@ -34,10 +32,13 @@ classes = ["alcohol", "amine", "alkane", "fluoride"]
 network = MolecularNetwork(descriptor="morgan2", sim_metric="tanimoto", sim_threshold=0.5)
 
 # Generate the molecular network graph
-graph = network.create_graph(smiles_list, classes)
+graph = network.create_graph(smiles_list, classes) # network.get_graph() also returns graph
 
-# Save the graph to a file (e.g., GML format)
-network.save_graph("molecular_network.gml")
+# Save the graph to a file
+network.save_graph("molecular_network")
+
+# Read graph from a file
+grpah = network.read_graph("molecular_network")
 ```
 
 ## Contributing
