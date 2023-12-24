@@ -1,16 +1,16 @@
 """Molecular Featurization Pipeline"""
 
 from rdkit import Chem
-from rdkit.Chem import AllChem, MACCSkeys, FingerprintMols
+from rdkit.Chem import AllChem, MACCSkeys, DataStructs
+from rdkit.Chem.Fingerprints import FingerprintMols
 from rdkit.Chem.AtomPairs import Pairs, Torsions
 
+from .utils import InvalidSMILESError
 
-class MolecularDescriptors:
-    """
-    Class for managing molecular descriptors (featurizers).
-    """
 
-    def __init__(self):
+class FingerprintCalculator:
+    def __init__(self, descriptor="morgan2"):
+        self.descriptor = descriptor
         self.descriptors = {
             "atompairs": lambda m: Pairs.GetAtomPairFingerprint(m),
             "maccs": lambda m: MACCSkeys.GenMACCSKeys(m),
@@ -20,14 +20,9 @@ class MolecularDescriptors:
             "topo": lambda m: Torsions.GetTopologicalTorsionFingerprint(m),
         }
 
-    def get_descriptor_function(self, descriptor_name):
-        """
-        Get the molecular descriptor function based on the descriptor name.
-
-        Args:
-            descriptor_name (str): Name of the molecular descriptor.
-
-        Returns:
-            callable: Molecular descriptor function.
-        """
-        return self.descriptors.get(descriptor_name)
+    def calculate_fingerprint(self, smi):
+        mol = Chem.MolFromSmiles(smi)
+        if mol:
+            fn = self.descriptors[self.descriptor]
+            return fn(mol)
+        raise InvalidSMILESError
