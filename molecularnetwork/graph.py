@@ -66,9 +66,9 @@ class MolecularNetwork:
     def get_network(self):
         return self.graph
 
-    def save_graph(self, graphname: str):
-        networkx.write_gpickle(self.graph, f"{graphname}.gpickle")
+    def save_graph(self, graph_name: str):
+        dump(self.graph, graph_name)
 
-    def read_graph(self, graphname: str):
-        self.graph = networkx.read_gpickle(f"{graphname}.gpickle")
+    def read_graph(self, graph_name: str):
+        self.graph = load(graph_name)
         return self.graph
