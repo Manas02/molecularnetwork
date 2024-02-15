@@ -1,4 +1,5 @@
 # MolecularNetwork
+![](./banner.png)
 
 `MolecularNetwork` is a Python package that facilitates the creation of molecular networks based on molecular similarities. It leverages RDKit for molecular operations, and NetworkX for graph operations.
 
@@ -35,10 +36,22 @@ network = MolecularNetwork(descriptor="morgan2", sim_metric="tanimoto", sim_thre
 graph = network.create_graph(smiles_list, classes) # network.get_graph() also returns graph
 
 # Save the graph to a file
-network.save_graph("molecular_network")
+network.save_graph("molecular_network.joblib")
 
 # Read graph from a file
-grpah = network.read_graph("molecular_network")
+grpah = network.read_graph("molecular_network.joblib")
+```
+
+## Test
+
+```bash
+pip install molecularnetwork[test] 
+```
+
+Or as editable package 
+
+```bash
+pip install -e .[test]
 ```
 
 ## Contributing

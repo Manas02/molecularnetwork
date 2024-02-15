@@ -26,7 +26,8 @@ class MolecularNetwork:
             for smi in smiles_list
         ]
 
-    def _convert_classes(self, classes):
+    @staticmethod
+    def _convert_classes(classes):
         unique_classes = np.unique(classes)
         categorical_labels = np.arange(len(unique_classes))
         class_labels = np.array(
@@ -67,9 +68,9 @@ class MolecularNetwork:
     def get_network(self):
         return self.graph
 
-    def save_graph(self, graphname: str):
-        networkx.write_gpickle(self.graph, f"{graphname}.gpickle")
+    def save_graph(self, graph_name: str):
+        dump(self.graph, graph_name)
 
-    def read_graph(self, graphname: str):
-        self.graph = networkx.read_gpickle(f"{graphname}.gpickle")
+    def read_graph(self, graph_name: str):
+        self.graph = load(graph_name)
         return self.graph
