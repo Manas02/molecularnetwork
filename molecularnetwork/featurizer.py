@@ -1,11 +1,11 @@
 """Molecular Featurization Pipeline"""
 
 from rdkit import Chem
-from rdkit.Chem import AllChem, MACCSkeys, DataStructs
+from rdkit.Chem import AllChem, MACCSkeys
 from rdkit.Chem.Fingerprints import FingerprintMols
 from rdkit.Chem.AtomPairs import Pairs, Torsions
 
-from .utils import InvalidSMILESError
+from molecularnetwork.utils import InvalidSMILESError
 
 
 class FingerprintCalculator:
