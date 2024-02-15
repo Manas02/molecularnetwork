@@ -18,11 +18,6 @@ To install the MolecularNetwork package, you can use `pip`. Ensure you have Pyth
 pip install molecularnetwork
 ```
 
-### Install test dependency
-```bash
-pip install molecularnetwork[test]
-```
-
 ## Usage
 Here's a simple example of how to use the MolecularNetwork package:
 
@@ -40,22 +35,10 @@ network = MolecularNetwork(descriptor="morgan2", sim_metric="tanimoto", sim_thre
 graph = network.create_graph(smiles_list, classes) # network.get_graph() also returns graph
 
 # Save the graph to a file
-network.save_graph("molecular_network")
+network.save_graph("molecular_network.joblib")
 
 # Read graph from a file
-grpah = network.read_graph("molecular_network.joblib")
-```
-
-## Test
-
-```bash
-pip install molecularnetwork[test] 
-```
-
-Or as editable package 
-
-```bash
-pip install -e .[test]
+grpah = network.read_graph("molecular_network")
 ```
 
 ## Contributing
