@@ -6,6 +6,7 @@ Classes:
     InvalidSMILESError: An exception raised when an invalid SMILES string is encountered.
 """
 
+
 class InvalidSMILESError(Exception):
     """
     Exception raised when an invalid SMILES string is encountered.

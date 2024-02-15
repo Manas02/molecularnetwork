@@ -8,10 +8,10 @@ Classes:
     MolecularNetwork: A class for generating molecular networks.
 """
 
-
-import numpy as np
 import networkx
+import numpy as np
 from joblib import dump, load
+
 from molecularnetwork.featurizer import FingerprintCalculator
 from molecularnetwork.similarity import SimilarityCalculator
 

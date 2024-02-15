@@ -14,8 +14,8 @@ Classes:
 
 from rdkit import Chem
 from rdkit.Chem import AllChem, MACCSkeys
-from rdkit.Chem.Fingerprints import FingerprintMols
 from rdkit.Chem.AtomPairs import Pairs, Torsions
+from rdkit.Chem.Fingerprints import FingerprintMols
 
 from molecularnetwork.utils import InvalidSMILESError
 
