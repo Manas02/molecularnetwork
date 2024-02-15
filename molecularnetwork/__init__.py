@@ -1,1 +1,1 @@
-from .graph import MolecularNetwork
+from molecularnetwork.graph import MolecularNetwork

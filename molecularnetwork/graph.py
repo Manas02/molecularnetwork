@@ -2,8 +2,9 @@
 
 import numpy as np
 import networkx
-from .featurizer import FingerprintCalculator
-from .similarity import SimilarityCalculator
+from joblib import dump, load
+from molecularnetwork.featurizer import FingerprintCalculator
+from molecularnetwork.similarity import SimilarityCalculator
 
 
 class MolecularNetwork:
