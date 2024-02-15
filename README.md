@@ -38,7 +38,19 @@ graph = network.create_graph(smiles_list, classes) # network.get_graph() also re
 network.save_graph("molecular_network.joblib")
 
 # Read graph from a file
-grpah = network.read_graph("molecular_network")
+grpah = network.read_graph("molecular_network.joblib")
+```
+
+## Test
+
+```bash
+pip install molecularnetwork[test] 
+```
+
+Or as editable package 
+
+```bash
+pip install -e .[test]
 ```
 
 ## Contributing
