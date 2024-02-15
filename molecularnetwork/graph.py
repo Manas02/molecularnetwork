@@ -26,7 +26,8 @@ class MolecularNetwork:
             for smi in smiles_list
         ]
 
-    def _convert_classes(self, classes):
+    @staticmethod
+    def _convert_classes(classes):
         unique_classes = np.unique(classes)
         categorical_labels = np.arange(len(unique_classes))
         class_labels = np.array(
