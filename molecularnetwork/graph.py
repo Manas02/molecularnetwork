@@ -1,7 +1,8 @@
 """Generate Molecular Network"""
 
-import numpy as np
 import networkx
+import numpy as np
+from joblib import dump, load
 from .featurizer import FingerprintCalculator
 from .similarity import SimilarityCalculator
 
@@ -66,9 +67,9 @@ class MolecularNetwork:
     def get_network(self):
         return self.graph
 
-    def save_graph(self, graphname: str):
-        networkx.write_gpickle(self.graph, f"{graphname}.gpickle")
+    def save_graph(self, graph_filename: str):
+        dump(self.graph, graph_filename)
 
-    def read_graph(self, graphname: str):
-        self.graph = networkx.read_gpickle(f"{graphname}.gpickle")
+    def read_graph(self, graph_filename: str):
+        self.graph = load(graph_filename)
         return self.graph
