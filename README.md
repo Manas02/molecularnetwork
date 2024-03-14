@@ -38,7 +38,7 @@ graph = network.create_graph(smiles_list, classes) # network.get_graph() also re
 network.save_graph("test_molecular_network.joblib")
 
 # Read graph from a file
-grpah = network.read_graph("test_molecular_network.joblib")
+graph = network.read_graph("test_molecular_network.joblib")
 ```
 
 ## Contributing
