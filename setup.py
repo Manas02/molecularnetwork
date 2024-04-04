@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="molecularnetwork",
-    version="0.3.4",
+    version="0.3.5",
     packages=find_packages(),
     install_requires=[
         "numpy",
