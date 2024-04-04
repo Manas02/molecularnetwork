@@ -29,10 +29,13 @@ smiles_list = ["CCO", "CCN", "CCC", "CCF"]
 classes = ["alcohol", "amine", "alkane", "fluoride"]
 
 # Create MolecularNetwork instance
-network = MolecularNetwork(descriptor="morgan2", sim_metric="tanimoto", sim_threshold=0.5)
+network = MolecularNetwork(descriptor="morgan2", sim_metric="tanimoto", sim_threshold=0.25)
 
 # Generate the molecular network graph
 graph = network.create_graph(smiles_list, classes) # network.get_graph() also returns graph
+
+graph[0][1]['weight'] # Returns the edge weight attribute which is the similarity between node 0 and 1
+# Returns 0.3333333333333333
 
 # Save the graph to a file
 network.save_graph("test_molecular_network.joblib")
