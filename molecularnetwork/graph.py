@@ -15,8 +15,10 @@ class MolecularNetwork:
         self.graph = networkx.Graph()
 
     def _create_graph(self, smiles_list, classes):
-        fps = self._calculate_fingerprints(smiles_list)
+        if classes is None:
+            classes = np.full(len(smiles_list), 0)
         unique_classes, categorical_labels = self._convert_classes(classes)
+        fps = self._calculate_fingerprints(smiles_list)
         self._add_nodes(smiles_list, fps, unique_classes, categorical_labels)
         self._add_edges(fps)
 
@@ -61,7 +63,7 @@ class MolecularNetwork:
     def _calculate_similarity(self, fp1, fp2):
         return self.similarity_calculator.calculate_similarity(fp1, fp2)
 
-    def create_graph(self, smiles_list, classes):
+    def create_graph(self, smiles_list, classes=None):
         self._create_graph(smiles_list, classes)
         return self.graph
 

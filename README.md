@@ -27,13 +27,20 @@ from molecularnetwork import MolecularNetwork
 
 # Define SMILES strings and classes
 smiles_list = ["CCO", "CCN", "CCC", "CCF"]
-classes = ["alcohol", "amine", "alkane", "fluoride"]
+
+# By default `0` is the categorical_label unless specified like following
+classes = ["alcohol", "amine", "alkane", "fluoride"] 
 
 # Create MolecularNetwork instance
 network = MolecularNetwork(descriptor="morgan2", sim_metric="tanimoto", sim_threshold=0.25)
 
 # Generate the molecular network graph
 graph = network.create_graph(smiles_list, classes) # network.get_graph() also returns graph
+
+# Graph `Node` Attributes
+graph[0]['fp'] # Returns ECFP4 fingerprint for node 0.
+graph[0]['smiles'] # Returns SMILES for node 0.
+graph[0]['categorical_label'] # Returns categorical label for node 0.
 
 graph[0][1]['weight'] # Returns the edge weight attribute which is the similarity between node 0 and 1
 # Returns 0.3333333333333333
