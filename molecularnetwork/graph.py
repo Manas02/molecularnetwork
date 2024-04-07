@@ -17,7 +17,7 @@ class MolecularNetwork:
     def _create_graph(self, smiles_list, classes):
         fps = self._calculate_fingerprints(smiles_list)
         unique_classes, categorical_labels = self._convert_classes(classes)
-        self._add_nodes(smiles_list, unique_classes, categorical_labels)
+        self._add_nodes(smiles_list, fps, unique_classes, categorical_labels)
         self._add_edges(fps)
 
     def _calculate_fingerprints(self, smiles_list):
@@ -34,7 +34,7 @@ class MolecularNetwork:
         )
         return unique_classes, class_labels
 
-    def _add_nodes(self, smiles_list, unique_classes, categorical_labels):
+    def _add_nodes(self, smiles_list, fps, unique_classes, categorical_labels):
         num_nodes = len(smiles_list)
         nodes = range(num_nodes)
         weighted_nodes = [
@@ -43,6 +43,7 @@ class MolecularNetwork:
                 {
                     "smiles": smiles_list[node],
                     "categorical_label": str(unique_classes[value]),
+                    "fp": np.array(fps[node])
                 },
             )
             for node, value in zip(nodes, categorical_labels)
