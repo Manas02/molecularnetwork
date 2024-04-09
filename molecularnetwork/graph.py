@@ -17,9 +17,8 @@ class MolecularNetwork:
     def _create_graph(self, smiles_list, classes):
         if classes is None:
             classes = np.full(len(smiles_list), 0)
-        unique_classes, categorical_labels = self._convert_classes(classes)
         fps = self._calculate_fingerprints(smiles_list)
-        self._add_nodes(smiles_list, fps, unique_classes, categorical_labels)
+        self._add_nodes(smiles_list, fps, classes)
         self._add_edges(fps)
 
     def _calculate_fingerprints(self, smiles_list):
@@ -28,15 +27,7 @@ class MolecularNetwork:
             for smi in smiles_list
         ]
 
-    def _convert_classes(self, classes):
-        unique_classes = np.unique(classes)
-        categorical_labels = np.arange(len(unique_classes))
-        class_labels = np.array(
-            [categorical_labels[np.where(unique_classes == c)[0][0]] for c in classes]
-        )
-        return unique_classes, class_labels
-
-    def _add_nodes(self, smiles_list, fps, unique_classes, categorical_labels):
+    def _add_nodes(self, smiles_list, fps, classes):
         num_nodes = len(smiles_list)
         nodes = range(num_nodes)
         weighted_nodes = [
@@ -44,11 +35,11 @@ class MolecularNetwork:
                 node,
                 {
                     "smiles": smiles_list[node],
-                    "categorical_label": str(unique_classes[value]),
+                    "categorical_label": str(value),
                     "fp": np.array(fps[node])
                 },
             )
-            for node, value in zip(nodes, categorical_labels)
+            for node, value in zip(nodes, classes)
         ]
         self.graph.add_nodes_from(weighted_nodes)
 

@@ -38,10 +38,11 @@ network = MolecularNetwork(descriptor="morgan2", sim_metric="tanimoto", sim_thre
 graph = network.create_graph(smiles_list, classes) # network.get_graph() also returns graph
 
 # Graph `Node` Attributes
-graph[0]['fp'] # Returns ECFP4 fingerprint for node 0.
-graph[0]['smiles'] # Returns SMILES for node 0.
-graph[0]['categorical_label'] # Returns categorical label for node 0.
+graph.nodes[0]['fp'] # Returns ECFP4 fingerprint for node 0 ["CCO"].
+graph.nodes[0]['smiles'] # Returns SMILES for node 0 ["CCO"].
+graph.nodes[0]['categorical_label'] # Returns `alcohol`
 
+# Graph `Edge` Attributes
 graph[0][1]['weight'] # Returns the edge weight attribute which is the similarity between node 0 and 1
 # Returns 0.3333333333333333
 
