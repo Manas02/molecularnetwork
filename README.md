@@ -52,7 +52,7 @@ network.save_graph("test_molecular_network.joblib")
 graph = network.read_graph("test_molecular_network.joblib")
 ```
 
-# Plot Molecular Network
+### Plot Molecular Network
 ```py
 def draw_graph_with_attributes(G, node_attribute='categorical_label', edge_attribute='weight'):
     """
