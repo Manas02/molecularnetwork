@@ -52,6 +52,59 @@ network.save_graph("test_molecular_network.joblib")
 graph = network.read_graph("test_molecular_network.joblib")
 ```
 
+# Plot Molecular Network
+```py
+def draw_graph_with_attributes(G, node_attribute='categorical_label', edge_attribute='weight'):
+    """
+    Draws a molecular network graph with node colors based on categorical labels and edge widths based on edge weights.
+
+    Args:
+      G: NetworkX graph representing the molecular network.
+      node_attribute: Name of the node attribute containing categorical labels (default: 'categorical_label').
+      edge_attribute: Name of the edge attribute containing weights (default: 'weight').
+    """
+
+    # Extract unique categorical labels
+    unique_labels = set(nx.get_node_attributes(G, node_attribute).values())
+    num_labels = len(unique_labels)
+
+    # Define a colormap
+    colormap = plt.cm.get_cmap('nipy_spectral', num_labels)
+
+    # Create a dictionary mapping labels to colors and a list of label names for legend
+    color_map = {label: colormap(i) for i, label in enumerate(unique_labels)}
+    label_names = list(color_map.keys())
+
+    # Extract node colors based on categorical labels
+    node_colors = [color_map[G.nodes[n][node_attribute]] for n in G.nodes]
+
+    # Extract edge widths based on edge weights
+    edge_widths = [G[u][v][edge_attribute] for u, v in G.edges]
+
+    # Draw the graph
+    plt.figure(figsize=(8, 6))
+    pos = nx.spring_layout(G, k=0.2)  # you can choose different layout algorithms
+
+    # Draw nodes
+    nx.draw_networkx_nodes(G, pos, node_color=node_colors, node_size=20, label=False)
+
+    # Draw edges with widths corresponding to their weights
+    for (u, v), width in zip(G.edges, edge_widths):
+        nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], width=width, edge_color='red', label=False)
+
+    # Create legend entries with colored circles and labels
+    legend_handles = [matplotlib.patches.Circle((0, 0), radius=0.4, color=color_map[label]) for label in label_names]
+    plt.legend(legend_handles, label_names, loc='upper right', title='Class')  # Legend in upper right with title
+
+    plt.title('Molecular Network')
+    plt.show()
+```
+
+```py
+>>> draw_graph_with_attributes(graph)
+```
+![](./net.png)
+
 ## Contributing
 If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request. I welcome contributions from the community.
 
