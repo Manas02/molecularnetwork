@@ -15,7 +15,7 @@ class FingerprintCalculator:
             "maccs": lambda m: MACCSkeys.GenMACCSKeys(m),
             "morgan2": lambda m: AllChem.GetMorganFingerprintAsBitVect(m, 2, 2048),
             "morgan3": lambda m: AllChem.GetMorganFingerprintAsBitVect(m, 3, 2048),
-            "rdkit": lambda m: FingerprintMols.FingerprintMol(m),
+            "rdkit": lambda m: Chem.RDKFingerprintMol(m),
         }
 
     def calculate_fingerprint(self, smi):
