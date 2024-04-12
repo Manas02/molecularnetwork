@@ -8,26 +8,32 @@ from .similarity import SimilarityCalculator
 
 
 class MolecularNetwork:
-    def __init__(self, descriptor="morgan2", sim_metric="tanimoto", sim_threshold=0.7):
+    def __init__(self, 
+                 descriptor="morgan2", 
+                 sim_metric="tanimoto", 
+                 sim_threshold=0.7,
+                 node_descriptor="morgan2"):
         self.sim_threshold = sim_threshold
         self.fingerprint_calculator = FingerprintCalculator(descriptor)
         self.similarity_calculator = SimilarityCalculator(sim_metric)
         self.graph = networkx.Graph()
+        self.node_fp_calculator = FingerprintCalculator(node_descriptor)
 
     def _create_graph(self, smiles_list, classes):
         if classes is None:
             classes = np.full(len(smiles_list), 0)
-        fps = self._calculate_fingerprints(smiles_list)
-        self._add_nodes(smiles_list, fps, classes)
+        fps = self._calculate_fingerprints(self.fingerprint_calculator, smiles_list)
+        model_fps = self._calculate_fingerprints(self.node_fp_calculator, smiles_list)
+        self._add_nodes(smiles_list, model_fps, classes)
         self._add_edges(fps)
 
-    def _calculate_fingerprints(self, smiles_list):
+    def _calculate_fingerprints(self, fp_calculator, smiles_list):
         return [
-            self.fingerprint_calculator.calculate_fingerprint(smi)
+            fp_calculator.calculate_fingerprint(smi)
             for smi in smiles_list
         ]
 
-    def _add_nodes(self, smiles_list, fps, classes):
+    def _add_nodes(self, smiles_list, model_fps, classes):
         num_nodes = len(smiles_list)
         nodes = range(num_nodes)
         weighted_nodes = [
@@ -36,7 +42,7 @@ class MolecularNetwork:
                 {
                     "smiles": smiles_list[node],
                     "categorical_label": str(value),
-                    "fp": np.array(fps[node])
+                    "fp": np.array(model_fps[node])
                 },
             )
             for node, value in zip(nodes, classes)
