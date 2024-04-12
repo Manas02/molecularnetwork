@@ -49,7 +49,9 @@ class MolecularNetwork:
             for j in range(i + 1, num_nodes):
                 sim_val = self._calculate_similarity(fps[i], fps[j])
                 if sim_val > self.sim_threshold:
-                    self.graph.add_edge(i, j, weight=sim_val)
+                    # Check if nodes are from same class or not (True if nodes are from same class)
+                    same_class = self.graph.nodes[i]['categorical_label'] == self.graph.nodes[j]['categorical_label']
+                    self.graph.add_edge(i, j, similarity=sim_val, same_class=same_class)
 
     def _calculate_similarity(self, fp1, fp2):
         return self.similarity_calculator.calculate_similarity(fp1, fp2)

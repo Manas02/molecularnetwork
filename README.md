@@ -43,7 +43,7 @@ graph.nodes[0]['smiles'] # Returns SMILES for node 0 ["CCO"].
 graph.nodes[0]['categorical_label'] # Returns `alcohol`
 
 # Graph `Edge` Attributes
-graph[0][1]['weight'] # Returns the edge weight attribute which is the similarity between node 0 and 1
+graph[0][1]['similarity'] # Returns the edge weight attribute which is the similarity between node 0 and 1
 # Returns 0.3333333333333333
 
 # Save the graph to a file
@@ -55,14 +55,14 @@ graph = network.read_graph("test_molecular_network.joblib")
 
 ### Plot Molecular Network
 ```py
-def draw_graph_with_attributes(G, node_attribute='categorical_label', edge_attribute='weight'):
+def draw_graph_with_attributes(G, node_attribute='categorical_label', edge_attribute='similarity'):
     """
-    Draws a molecular network graph with node colors based on categorical labels and edge widths based on edge weights.
+    Draws a molecular network graph with node colors based on categorical labels and edge widths based on similarity.
 
     Args:
       G: NetworkX graph representing the molecular network.
       node_attribute: Name of the node attribute containing categorical labels (default: 'categorical_label').
-      edge_attribute: Name of the edge attribute containing weights (default: 'weight').
+      edge_attribute: Name of the edge attribute containing similarity (default: 'similarity').
     """
 
     # Extract unique categorical labels
@@ -79,7 +79,7 @@ def draw_graph_with_attributes(G, node_attribute='categorical_label', edge_attri
     # Extract node colors based on categorical labels
     node_colors = [color_map[G.nodes[n][node_attribute]] for n in G.nodes]
 
-    # Extract edge widths based on edge weights
+    # Extract edge widths based on similarity
     edge_widths = [G[u][v][edge_attribute] for u, v in G.edges]
 
     # Draw the graph
