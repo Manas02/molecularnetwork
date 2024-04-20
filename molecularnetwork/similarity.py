@@ -12,10 +12,8 @@ class SimilarityCalculator:
             "cosine": DataStructs.CosineSimilarity,
             "dice": DataStructs.DiceSimilarity,
             "kulczynski": DataStructs.KulczynskiSimilarity,
-            "mcconnaughey": DataStructs.McConnaugheySimilarity,
             "onbit": DataStructs.OnBitSimilarity,
             "rogotgoldberg": DataStructs.RogotGoldbergSimilarity,
-            "russel": DataStructs.RusselSimilarity,
             "sokal": DataStructs.SokalSimilarity,
             "tanimoto": DataStructs.TanimotoSimilarity,
             "tversky": lambda m1, m2: DataStructs.TverskySimilarity(
