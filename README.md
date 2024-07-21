@@ -1,5 +1,5 @@
 # MolecularNetwork
-![banner](banner.png)
+![banner](https://github.com/Manas02/molecularnetwork/raw/main/banner.png?raw=True)
 
 `MolecularNetwork` is a Python package that facilitates the creation of molecular networks based on molecular similarities. It leverages RDKit for molecular operations, and NetworkX for graph operations.
 
@@ -104,7 +104,7 @@ def draw_graph_with_attributes(G, node_attribute='categorical_label', edge_attri
 ```py
 >>> draw_graph_with_attributes(graph)
 ```
-![](./net.png)
+![net](https://github.com/Manas02/molecularnetwork/raw/main/net.png?raw=True)
 
 ## Contributing
 If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request. I welcome contributions from the community.
