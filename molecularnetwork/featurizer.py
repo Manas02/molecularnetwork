@@ -2,7 +2,7 @@
 
 from rdkit import Chem
 from rdkit.Chem import rdFingerprintGenerator
-
+from rdkit.Chem.rdMolDescriptors import GetMACCSKeysFingerprint
 from .utils import InvalidSMILESError
 
 
@@ -22,14 +22,15 @@ class FingerprintCalculator:
             "morgan3_chiral": rdFingerprintGenerator.GetMorganGenerator(
                 radius=3, includeChirality=True
             ).GetFingerprint,
-            "atom pair": rdFingerprintGenerator.GetAtomPairGenerator().GetFingerprint,
-            "topological torsion": rdFingerprintGenerator.GetTopologicalTorsionGenerator().GetFingerprint,
+            "atom_pair": rdFingerprintGenerator.GetAtomPairGenerator().GetFingerprint,
+            "topological_torsion": rdFingerprintGenerator.GetTopologicalTorsionGenerator().GetFingerprint,
             "rdkit": rdFingerprintGenerator.GetRDKitFPGenerator().GetFingerprint,
+            "maccs": GetMACCSKeysFingerprint
         }
 
     def calculate_fingerprint(self, smi):
         mol = Chem.MolFromSmiles(smi)
-        if mol:
+        if mol and self.descriptor in self.descriptors:
             fn = self.descriptors[self.descriptor]
             return fn(mol)
         raise InvalidSMILESError
